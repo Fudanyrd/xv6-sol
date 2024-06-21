@@ -14,4 +14,9 @@
     <td>100%</td>
     <td><a href="./lab0-util/log/lab0-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 1: Syscall</td>
+    <td>100%</td>
+    <td><a href="./lab1-syscall/log/lab1-sol.md">link</a></td>
+  </tr>
 </table>
