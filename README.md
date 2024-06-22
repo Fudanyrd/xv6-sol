@@ -26,6 +26,11 @@ Some useful resources:
     <td>100%</td>
     <td><a href="./lab2-pgtbl/log/lab2-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 3: Trap</td>
+    <td>100%</td>
+    <td><a href="./lab3-trap/log/lab3-sol.md">link</a></td>
+  </tr>
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
