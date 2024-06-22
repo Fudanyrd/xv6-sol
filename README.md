@@ -1,6 +1,8 @@
 # Solution to xv6 Labs
 
-[Course-website](https://pdos.csail.mit.edu/6.828/2021/)
+Some useful resources:
+[Course-website](https://pdos.csail.mit.edu/6.828/2021/)  
+[xv6-book](https://pdos.csail.mit.edu/6.828/2021/xv6/book-riscv-rev2.pdf)  
 
 # Progress
 <table>
@@ -19,4 +21,11 @@
     <td>100%</td>
     <td><a href="./lab1-syscall/log/lab1-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 2: Pagetable</td>
+    <td>100%</td>
+    <td><a href="./lab2-pgtbl/log/lab2-sol.md">link</a></td>
+  </tr>
 </table>
+
+> log contains notes from xv6-book, lab implementations, pitfalls, etc.
