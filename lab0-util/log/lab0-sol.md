@@ -75,6 +75,7 @@ Surprisingly, this can pass the test:
 ```
 But I'd like to try something fancier. First attempt(looks correct, but not):
 ```c
+struct pipe_port { int read_, write_; };
 int main(int argc, char **argv) {
   const int end = 35;  // end of prime search
   int start = 2;
@@ -109,6 +110,7 @@ pip_start:
 This is incorrect because parent will exit **before** its child process. Need some way to make parent 
 live long enough. The solution is obvious:
 ```c
+struct pipe_port { int read_, write_; };
 int main(int argc, char **argv) {
   const int end = 35;  // end of prime search
   int start = 2;

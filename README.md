@@ -1,6 +1,5 @@
 # Solution to xv6 Labs
-
-Some useful resources:
+Some useful resources:  
 [Course-website](https://pdos.csail.mit.edu/6.828/2021/)  
 [xv6-book](https://pdos.csail.mit.edu/6.828/2021/xv6/book-riscv-rev2.pdf)  
 
@@ -35,6 +34,11 @@ Some useful resources:
     <td>Lab 4: Copy-on-write Fork</td>
     <td>100%</td>
     <td><a href="./lab4-cow/log/lab4-sol.md">link</a></td>
+  </tr>
+  <tr>
+    <td>Lab 5: Multithreading</td>
+    <td>100%</td>
+    <td><a href="./lab5-thread/log/lab5-sol.md">link</a></td>
   </tr>
 </table>
 
