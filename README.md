@@ -40,6 +40,11 @@ Some useful resources:
     <td>100%</td>
     <td><a href="./lab5-thread/log/lab5-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 6: Networking</td>
+    <td>100%</td>
+    <td><a href="./lab6-net/log/lab6-sol.md">link</a></td>
+  </tr>
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
