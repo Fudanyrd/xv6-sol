@@ -6,8 +6,6 @@ Read this developer [manual](https://pdos.csail.mit.edu/6.828/2021/readings/8254
 Personally I feel that this manual is large enough to confuse people like me. 
 So I'm going to just skip reading it and start coding.
 
-## e1000 recv
-
 ## e1000 transmit 
 Read the starter code, notice that a lock is needed because this method may be run simutaneously
 by multiple cpus.
@@ -67,6 +65,9 @@ int e1000_transmit(struct mbuf *m) {
   return 0;
 }
 ```
+
+## e1000 recv
+You'll find this task much easier if you simply follow hints in the handout.
 
 ```c
 static void e1000_recv(void) {
