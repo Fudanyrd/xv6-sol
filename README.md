@@ -50,6 +50,11 @@ Some useful resources:
     <td style="color:red">85.7%</td>
     <td><a href="./lab7-lock/log/lab7-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 8: Filesystem</td>
+    <td>100%</td>
+    <td><a href="./lab8-fs/log/lab8-sol.md">link</a></td>
+  </tr>
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
