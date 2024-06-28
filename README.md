@@ -45,6 +45,11 @@ Some useful resources:
     <td>100%</td>
     <td><a href="./lab6-net/log/lab6-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 7: Lock</td>
+    <td style="color:red">85.7%</td>
+    <td><a href="./lab7-lock/log/lab7-sol.md">link</a></td>
+  </tr>
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
