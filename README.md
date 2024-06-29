@@ -55,6 +55,11 @@ Some useful resources:
     <td>100%</td>
     <td><a href="./lab8-fs/log/lab8-sol.md">link</a></td>
   </tr>
+  <tr>
+    <td>Lab 9: Mmap</td>
+    <td>100%</td>
+    <td><a href="./lab9-mmap/log/lab9-sol.md">link</a></td>
+  </tr>
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
