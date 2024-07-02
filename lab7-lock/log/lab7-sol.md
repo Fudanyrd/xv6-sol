@@ -130,132 +130,41 @@ test2 OK
 ```
 
 ## Buffer cache
-<b style="color: red">TODO</b>
-
-Here's a hash table package for you to start with:
+My policy is to create `7` buckets, each holding `NBUF` buffers. Then I create a lock for each bucket.
 ```c
-// number of bio htable buckets
-#define BIO_HTBUCKETS 31U
+#define BIO_BUCKETS 7U
+struct bcache_row {
+  struct spinlock lock;
+  struct buf buf[NBUF];
 
-/** 
- * hashtable bucket
- * We can have fixed size of entry, for the maximum
- * number of buffer is NBUF. Operations on a bucket
- * includes lookup, put, remove, they are all atomic.
- */
-struct bio_bucket {
-  // pointer to buffers
-  struct buf *bufs_[NBUF];
-  // number of valid bufs
-  uint valid_;
-  // lock of the bucket
-  struct spinlock lock_;
-};
-/** initialize a bucket */
-void 
-init_bio_bucket(struct bio_bucket *bkt) {
-  for (int i = 0; i < NBUF; ++i) {
-    bkt->bufs_[i] = 0;
-  }
-  bkt->valid_ = 0;
-  initlock(&bkt->lock_, "");
-}
-
-/** lookup a buffer in the bucket, return 0 if not found */
-struct buf *
-lookup_bio_bucket(struct bio_bucket *bkt, uint dev, uint blockno) {
-  uint it = 0;
-  for (; it < bkt->valid_; ++it) {
-    if(bkt->bufs_[it]->blockno == blockno
-    && bkt->bufs_[it]->dev == dev) {
-      return bkt->bufs_[it];
-    }
-  }
-
-  return 0;
-}
-/** put a buffer into the bucket */
-void
-put_bio_bucket(struct bio_bucket *bkt, struct buf *bf) {
-  bkt->bufs_[bkt->valid_] = bf;
-  bkt->valid_ += 1;
-  if (bkt->valid_ > NBUF) {
-    panic("ht overflow");
-  }
-}
-/** remove a buffer in the bucket */
-void
-remove_bio_bucket(struct bio_bucket *bkt, uint dev, uint blockno) {
-  // lookup in the bucket
-  uint idx = NBUF;
-  for (uint i = 0; i < bkt->valid_; ++i) {
-    struct buf *b = bkt->bufs_[i];
-    if (b->blockno == blockno && b->dev == dev) {
-      idx = i;
-      break;
-    }  
-  }
-
-  // not found, release the lock, return
-  if (idx == NBUF) {
-    panic("remove_bio_bucket: not found");
-    return;
-  }
-
-  // move bucket entries in bulks
-  for (uint k = idx + 1; k < bkt->valid_; ++k) {
-    bkt->bufs_[k - 1] = bkt->bufs_[k];
-  }
-  bkt->valid_ -= 1;
-
-}
-
-/** hash table */
-struct bio_htable {
-  struct bio_bucket buckets_[BIO_HTBUCKETS];
-} bcache_ht;
-
-static inline uint
-hash_to_bucket_idx(uint blockno) {
-  return blockno % BIO_HTBUCKETS;
-}
-static inline void
-lock_bio_bucket(uint bucketno) {
-  acquire(&(bcache_ht.buckets_[bucketno].lock_));
-}
-static inline void
-unlock_bio_bucket(uint bucketno) {
-  release(&(bcache_ht.buckets_[bucketno].lock_));
-}
+  // Linked list of all buffers, through prev/next.
+  // Sorted by how recently the buffer was used.
+  // head.next is most recent, head.prev is least.
+  struct buf head;
+} bcache[BIO_BUCKETS];
 ```
 
-> I feel that there is no safe way to concurrently execute bget, brelse,
-> bpin, bunpin. So I'll just use a global lock that serializes all buffer
-> operations. 
+> One pitfall here is that you cannot have too many buckets, otherwise some weird 
+> kernel page fault occurs. In my experiment you cannot have more than 10 buckets.
 
 ## run all
 ```
-== Test running kalloctest == (52.7s) 
-== Test   kalloctest: test1 ==
+root@yrd:/mnt/d/handouts/xv6/code# rm fs.img
+root@yrd:/mnt/d/handouts/xv6/code# ./grade-lab-lock
+make: 'kernel/kernel' is up to date.
+== Test running kalloctest == (56.5s) 
+== Test   kalloctest: test1 == 
   kalloctest: test1: OK
 == Test   kalloctest: test2 ==
   kalloctest: test2: OK
-== Test kalloctest: sbrkmuch == kalloctest: sbrkmuch: OK (7.9s) 
-== Test running bcachetest == (11.0s) 
+== Test kalloctest: sbrkmuch == kalloctest: sbrkmuch: OK (7.9s)
+== Test running bcachetest == (4.5s)
 == Test   bcachetest: test0 ==
-  bcachetest: test0: FAIL
-    ...
-         tot= 35998
-         test0: FAIL
-         start test1
-         test1 OK
-         $ qemu-system-riscv64: terminating on signal 15 from pid 33095 (make)
-    MISSING '^test0: OK$'
+  bcachetest: test0: OK
 == Test   bcachetest: test1 ==
   bcachetest: test1: OK
-== Test usertests == usertests: OK (124.0s) 
-== Test time == 
-time: OK 
-Score: 60/70
+== Test usertests == usertests: OK (113.2s)
+== Test time ==
+time: OK
+Score: 70/70
 ```
-<b style="color: red">FAIL TO COMPLETE THIS LAB!!!</b>

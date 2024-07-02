@@ -47,7 +47,7 @@ Some useful resources:
   </tr>
   <tr>
     <td>Lab 7: Lock</td>
-    <td style="color:red">85.7%</td>
+    <td>100%</td>
     <td><a href="./lab7-lock/log/lab7-sol.md">link</a></td>
   </tr>
   <tr>
