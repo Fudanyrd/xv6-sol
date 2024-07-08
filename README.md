@@ -63,3 +63,5 @@ Some useful resources:
 </table>
 
 > log contains notes from xv6-book, lab implementations, pitfalls, etc.
+> Because of time constraints, please excuse my not implementing any optional
+> tasks of each lab. 
